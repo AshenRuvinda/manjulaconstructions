@@ -44,6 +44,11 @@ export function constructMetadata({
       description,
       images: [image],
     },
+    icons: {
+      icon: "/logo.png",
+      shortcut: "/logo.png",
+      apple: "/logo.png",
+    },
     robots: {
       index: !noIndex,
       follow: !noIndex,

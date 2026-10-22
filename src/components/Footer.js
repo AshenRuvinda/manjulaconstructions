@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { company, navigationLinks } from "@/data/company";
 import { services } from "@/data/services";
 import { Phone, MapPin, MessageCircle, ArrowRight, ShieldCheck, Hammer } from "lucide-react";
@@ -14,8 +15,14 @@ export default function Footer() {
           {/* Column 1: Company Profile */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#FFD52A] flex items-center justify-center font-bold text-[#102C5C] text-xl shadow-md">
-                M
+              <div className="relative w-11 h-11 rounded-lg overflow-hidden border border-white/20 shadow-md bg-black shrink-0">
+                <Image
+                  src="/logo.png"
+                  alt="Manjula Constructions Logo"
+                  fill
+                  sizes="44px"
+                  className="object-contain p-1"
+                />
               </div>
               <div>
                 <span className="block font-black text-xl tracking-tight text-white leading-none">

@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { company } from "@/data/company";
 import EstimateForm from "@/components/EstimateForm";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
-import { Calculator, Phone, MessageCircle } from "lucide-react";
+import { Calculator, Phone, MessageCircle, Loader2 } from "lucide-react";
 
 export default function EstimatePage() {
   const { language } = useLanguage();
@@ -37,7 +38,15 @@ export default function EstimatePage() {
             
             {/* Form Column */}
             <div className="lg:col-span-8">
-              <EstimateForm />
+              <Suspense
+                fallback={
+                  <div className="bg-white rounded-2xl p-12 border border-gray-200 shadow-lg text-center flex items-center justify-center min-h-[400px]">
+                    <Loader2 className="w-8 h-8 text-[#102C5C] animate-spin" />
+                  </div>
+                }
+              >
+                <EstimateForm />
+              </Suspense>
             </div>
 
             {/* Sidebar Column */}

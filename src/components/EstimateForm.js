@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { validateEstimateForm } from "@/lib/validation";
 import { company } from "@/data/company";
 import { useLanguage } from "@/context/LanguageContext";
@@ -20,6 +21,9 @@ const baseProjectTypeOptions = [
 
 export default function EstimateForm() {
   const { language } = useLanguage();
+  const searchParams = useSearchParams();
+  const serviceParam = searchParams.get("service") || searchParams.get("type") || "";
+
   const t = translations[language] || translations.en;
 
   const [formData, setFormData] = useState({
@@ -33,6 +37,24 @@ export default function EstimateForm() {
     projectDescription: "",
     consent: false,
   });
+
+  // Automatically pre-select projectType if passed via query params (e.g. ?service=Complete%20House%20Construction)
+  useEffect(() => {
+    if (serviceParam) {
+      // Find matching option case-insensitively or exact match
+      const matched = baseProjectTypeOptions.find(
+        (opt) =>
+          opt.toLowerCase() === serviceParam.toLowerCase() ||
+          serviceParam.toLowerCase().includes(opt.toLowerCase()) ||
+          opt.toLowerCase().includes(serviceParam.toLowerCase())
+      );
+      if (matched) {
+        setFormData((prev) => ({ ...prev, projectType: matched }));
+      } else {
+        setFormData((prev) => ({ ...prev, projectType: serviceParam }));
+      }
+    }
+  }, [serviceParam]);
 
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error

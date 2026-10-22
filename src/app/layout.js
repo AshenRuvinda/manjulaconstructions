@@ -11,14 +11,13 @@ export default function RootLayout({ children }) {
   const businessSchema = generateLocalBusinessSchema();
 
   return (
-    <html lang="en">
-      <head>
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased min-h-screen flex flex-col bg-white text-[#252A32]">
         <script
+          id="schema-local-business"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
-      </head>
-      <body className="antialiased min-h-screen flex flex-col bg-white text-[#252A32]">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

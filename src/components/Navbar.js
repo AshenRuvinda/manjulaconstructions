@@ -34,7 +34,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top emergency / quick contact bar */}
-      <div className="bg-[#0A1E40] text-gray-200 text-xs py-2 px-4 border-b border-white/10 hidden md:block">
+      <div className="top-bar bg-[#0A1E40] text-gray-200 text-xs py-2 px-4 border-b border-white/10 hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-1.5">
@@ -82,11 +82,11 @@ export default function Navbar() {
               />
             </div>
             {/* Brand text hidden on mobile, visible on sm and up */}
-            <div className="hidden sm:flex flex-col whitespace-nowrap select-none">
-              <span className="font-black text-lg sm:text-xl tracking-tight text-white leading-none whitespace-nowrap">
+            <div className="hidden sm:flex flex-col whitespace-nowrap select-none brand-title">
+              <span className="brand-name font-black text-lg sm:text-xl tracking-tight text-white leading-none whitespace-nowrap">
                 MANJULA
               </span>
-              <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider text-[#FFD52A] uppercase mt-0.5 whitespace-nowrap">
+              <span className="brand-sub text-[10px] sm:text-[11px] font-semibold tracking-wider text-[#FFD52A] uppercase mt-0.5 whitespace-nowrap">
                 Constructions
               </span>
             </div>
@@ -100,7 +100,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`sinhala-gemunu px-2.5 xl:px-3 py-2 rounded-md font-medium transition-colors whitespace-nowrap ${
+                    language === "si"
+                      ? "text-base xl:text-[17px] tracking-normal font-semibold"
+                      : "text-xs xl:text-sm font-medium"
+                  } ${
                     isActive
                       ? "text-[#FFD52A] bg-white/10 font-bold"
                       : "text-gray-200 hover:text-white hover:bg-white/5"
@@ -124,7 +128,7 @@ export default function Navbar() {
             </a>
             <Link
               href="/estimate"
-              className="inline-flex items-center gap-1.5 bg-[#FFD52A] hover:bg-[#F2C71B] text-[#102C5C] font-bold text-xs uppercase tracking-wide px-3.5 py-2.5 rounded-md shadow-sm transition-all hover:shadow hover:scale-[1.02] whitespace-nowrap"
+              className="sinhala-gemunu inline-flex items-center gap-1.5 bg-[#FFD52A] hover:bg-[#F2C71B] text-[#102C5C] font-bold text-xs uppercase tracking-wide px-3.5 py-2.5 rounded-md shadow-sm transition-all hover:shadow hover:scale-[1.02] whitespace-nowrap"
             >
               <span>{t.navGetEstimate}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -157,7 +161,11 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`px-3 py-2.5 rounded-md text-base font-medium transition-colors ${
+                    className={`sinhala-gemunu px-3 py-2.5 rounded-md transition-colors ${
+                      language === "si"
+                        ? "text-lg sm:text-xl font-bold tracking-normal"
+                        : "text-base font-medium"
+                    } ${
                       isActive
                         ? "text-[#FFD52A] bg-white/10 font-bold"
                         : "text-gray-200 hover:text-white hover:bg-white/5"

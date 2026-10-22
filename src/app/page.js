@@ -91,6 +91,7 @@ export default function HomePage() {
             src="/logo.png"
             alt="Manjula Constructions Logo Watermark"
             fill
+            sizes="(max-width: 640px) 380px, (max-width: 1024px) 520px, 680px"
             className="object-contain"
             priority
           />
@@ -113,10 +114,10 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] sm:leading-[1.1] text-white mb-6"
+              className="sinhala-gemunu text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] sm:leading-[1.1] text-white mb-6"
             >
-              {t.heroTitleLine1}{" "}
-              <span className="text-[#FFD52A] block sm:inline">
+              <span className="sinhala-gemunu">{t.heroTitleLine1}</span>{" "}
+              <span className="sinhala-gemunu text-[#FFD52A] block sm:inline">
                 {t.heroTitleLine2}
               </span>
             </motion.h1>

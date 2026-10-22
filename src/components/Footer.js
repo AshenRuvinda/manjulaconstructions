@@ -5,7 +5,6 @@ import Image from "next/image";
 import { company } from "@/data/company";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations, localizedNavigation, localizedServices } from "@/data/translations";
-import LanguageSwitch from "@/components/LanguageSwitch";
 import { Phone, MapPin, MessageCircle, ArrowRight, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
@@ -32,11 +31,11 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <div>
-                <span className="block font-black text-xl tracking-tight text-white leading-none">
+              <div className="brand-title">
+                <span className="brand-name block font-black text-xl tracking-tight text-white leading-none">
                   MANJULA
                 </span>
-                <span className="block text-[11px] font-semibold tracking-wider text-[#FFD52A] uppercase mt-0.5">
+                <span className="brand-sub block text-[11px] font-semibold tracking-wider text-[#FFD52A] uppercase mt-0.5">
                   Constructions
                 </span>
               </div>
@@ -50,9 +49,6 @@ export default function Footer() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/5 border border-white/10 text-xs text-[#FFD52A]">
                 <ShieldCheck className="w-4 h-4" />
                 <span>{t.footerTrustBadge}</span>
-              </div>
-              <div>
-                <LanguageSwitch variant="default" />
               </div>
             </div>
           </div>

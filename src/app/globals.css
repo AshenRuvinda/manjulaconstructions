@@ -1,5 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Gemunu Libre";
+  src: url("/fonts/gemunu-libre.ttf") format("truetype");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gemunu Libre";
+  src: url("/fonts/gemunu-libre-bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maname";
+  src: url("/fonts/maname.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @layer base {
   :root {
@@ -26,30 +50,144 @@
     color: #252A32;
     overflow-x: hidden;
   }
+}
 
-  /* Sinhala typography enhancements for optical alignment and clean ascender/descender clearance */
-  html[lang="si"],
-  html[lang="si"] body {
-    font-family: "Noto Sans Sinhala", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.7;
-  }
+/* ==========================================================================
+   SINHALA TYPOGRAPHY SYSTEM
+   1. Gemunu Libre: All headings (h1-h6), hero title, and all navigation links
+   2. Maname: All body text, paragraphs, descriptions, badges, buttons, inputs
+   ========================================================================== */
 
-  html[lang="si"] p {
-    overflow-wrap: break-word;
-  }
+/* Default Sinhala font for entire page: Maname */
+html[lang="si"],
+html[lang="si"] body {
+  font-family: "Maname", "Noto Sans Sinhala", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  line-height: 1.7;
+  font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  html[lang="si"] h1,
-  html[lang="si"] h2,
-  html[lang="si"] h3,
-  html[lang="si"] h4 {
-    line-height: 1.35;
-    letter-spacing: normal;
-  }
+html[lang="si"] p,
+html[lang="si"] span,
+html[lang="si"] div,
+html[lang="si"] li,
+html[lang="si"] label,
+html[lang="si"] input,
+html[lang="si"] textarea,
+html[lang="si"] select,
+html[lang="si"] button,
+html[lang="si"] .btn {
+  font-family: "Maname", "Noto Sans Sinhala", sans-serif;
+}
 
-  html[lang="si"] button,
-  html[lang="si"] .btn {
-    line-height: 1.4;
-  }
+html[lang="si"] p {
+  overflow-wrap: break-word;
+}
+
+/* Specific Sinhala font: Gemunu Libre for Top-bar, Hero Title, All Headings & Navigation */
+html[lang="si"] h1,
+html[lang="si"] h1 *,
+html[lang="si"] h2,
+html[lang="si"] h2 *,
+html[lang="si"] h3,
+html[lang="si"] h3 *,
+html[lang="si"] h4,
+html[lang="si"] h4 *,
+html[lang="si"] h5,
+html[lang="si"] h5 *,
+html[lang="si"] h6,
+html[lang="si"] h6 *,
+html[lang="si"] nav a,
+html[lang="si"] nav span,
+html[lang="si"] header nav a,
+html[lang="si"] .top-bar,
+html[lang="si"] .top-bar *,
+html[lang="si"] .sinhala-gemunu,
+html[lang="si"] .sinhala-gemunu *,
+html[lang="si"] .font-heading {
+  font-family: "Gemunu Libre", "Noto Sans Sinhala", sans-serif !important;
+  letter-spacing: normal !important;
+}
+
+/* Crisp, readable top-bar text in Sinhala */
+html[lang="si"] .top-bar {
+  font-size: 0.875rem !important; /* 14px for clear readability */
+  line-height: 1.4 !important;
+}
+
+/* Big, readable navigation links in Sinhala view */
+html[lang="si"] header nav a {
+  font-size: 1.05rem !important; /* ~17px instead of 12-14px */
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  padding-left: 0.85rem !important;
+  padding-right: 0.85rem !important;
+}
+
+/* Mobile drawer Sinhala nav links */
+html[lang="si"] header .xl\:hidden nav a,
+html[lang="si"] header .xl\:hidden a.sinhala-gemunu {
+  font-size: 1.25rem !important; /* ~20px */
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+/* CTA buttons inside header */
+html[lang="si"] header a[href="/estimate"] {
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+}
+
+/* Ensure Brand Name (MANJULA Constructions) stays identical to English view in both views */
+.brand-title,
+.brand-name,
+.brand-sub,
+html[lang="si"] .brand-title,
+html[lang="si"] .brand-title *,
+html[lang="si"] .brand-name,
+html[lang="si"] .brand-sub,
+html[lang="si"] header a[href="/"] span,
+html[lang="si"] footer .brand-title span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Ensure Language Switcher is pixel-identical in BOTH English and Sinhala views */
+.lang-switcher,
+html[lang="si"] .lang-switcher {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.lang-switcher button,
+html[lang="si"] .lang-switcher button {
+  min-width: 32px !important;
+  height: 26px !important;
+  padding: 0 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.lang-switcher button span.lang-si,
+html[lang="si"] .lang-switcher button span.lang-si {
+  font-family: "Gemunu Libre", "Noto Sans Sinhala", sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+.lang-switcher button span.lang-en,
+html[lang="si"] .lang-switcher button span.lang-en {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
 }
 
 /* Custom Utilities for Navy and Yellow brand identity */

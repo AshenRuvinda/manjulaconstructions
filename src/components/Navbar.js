@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { company, navigationLinks } from "@/data/company";
-import { Menu, X, Phone, ArrowRight } from "lucide-react";
+import { Menu, X, Phone, ArrowRight, MapPin } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +31,9 @@ export default function Navbar() {
       <div className="bg-[#0A1E40] text-gray-200 text-xs py-2 px-4 border-b border-white/10 hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <span>
-              📍 <strong className="text-white">Kochchikade, Negombo</strong> · Sri Lanka
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-[#FFD52A]" />
+              <span><strong className="text-white">Kochchikade, Negombo</strong> · Sri Lanka</span>
             </span>
             <span className="text-[#FFD52A]">
               Direct Inquiries:{" "}

@@ -59,6 +59,17 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A1E40] via-transparent to-transparent" />
         </motion.div>
 
+        {/* Big blurred watermark brand logo positioned on the left side */}
+        <div className="absolute left-[-16%] sm:left-[-10%] lg:left-[-2%] top-1/2 -translate-y-1/2 w-[380px] sm:w-[520px] lg:w-[680px] aspect-square pointer-events-none select-none z-0 opacity-15 lg:opacity-20 blur-sm mix-blend-screen">
+          <Image
+            src="/logo.png"
+            alt="Manjula Constructions Logo Watermark"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="max-w-3xl">
             {/* Eyebrow badge entrance */}

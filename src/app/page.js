@@ -59,8 +59,23 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A1E40] via-transparent to-transparent" />
         </motion.div>
 
-        {/* Big blurred watermark brand logo positioned on the left side */}
-        <div className="absolute left-[-16%] sm:left-[-10%] lg:left-[-2%] top-1/2 -translate-y-1/2 w-[380px] sm:w-[520px] lg:w-[680px] aspect-square pointer-events-none select-none z-0 opacity-15 lg:opacity-20 blur-sm mix-blend-screen">
+        {/* Big blurred watermark brand logo positioned on the left side with motion */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85, x: -30 }}
+          animate={{
+            opacity: [0, 0.22, 0.18],
+            scale: [0.85, 1.02, 1],
+            x: 0,
+            y: ["-50%", "-52%", "-48%", "-50%"],
+          }}
+          transition={{
+            opacity: { duration: 1.6, ease: "easeOut" },
+            scale: { duration: 1.8, ease: "easeOut" },
+            x: { duration: 1.4, ease: "easeOut" },
+            y: { duration: 9, repeat: Infinity, ease: "easeInOut" },
+          }}
+          className="absolute left-[-16%] sm:left-[-10%] lg:left-[-2%] top-1/2 w-[380px] sm:w-[520px] lg:w-[680px] aspect-square pointer-events-none select-none z-0 blur-sm mix-blend-screen"
+        >
           <Image
             src="/logo.png"
             alt="Manjula Constructions Logo Watermark"
@@ -68,7 +83,7 @@ export default function HomePage() {
             className="object-contain"
             priority
           />
-        </div>
+        </motion.div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="max-w-3xl">

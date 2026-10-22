@@ -45,9 +45,9 @@ export function constructMetadata({
       images: [image],
     },
     icons: {
-      icon: "/logo.png",
-      shortcut: "/logo.png",
-      apple: "/logo.png",
+      icon: "/logodark.png",
+      shortcut: "/logodark.png",
+      apple: "/logodark.png",
     },
     robots: {
       index: !noIndex,

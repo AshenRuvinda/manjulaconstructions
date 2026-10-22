@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { company } from "@/data/company";
 import { Phone, ArrowRight, MessageCircle } from "lucide-react";
 
@@ -13,7 +16,13 @@ export default function ContactCTA({
       <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#FFD52A]/10 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0A1E40] border border-white/10 rounded-2xl p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-[#0A1E40] border border-white/10 rounded-2xl p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden"
+        >
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-bold tracking-widest uppercase text-[#FFD52A] mb-3 bg-[#FFD52A]/10 px-3 py-1 rounded-full">
               Start Your Construction Project
@@ -53,7 +62,7 @@ export default function ContactCTA({
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

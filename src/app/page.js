@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { company } from "@/data/company";
 import { services } from "@/data/services";
 import { projects } from "@/data/projects";
@@ -9,6 +12,7 @@ import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
 import ProjectCard from "@/components/ProjectCard";
 import ContactCTA from "@/components/ContactCTA";
+import AnimatedSection, { fadeIn, fadeInLeft, fadeInRight } from "@/components/AnimatedSection";
 import {
   ArrowRight,
   Phone,
@@ -18,7 +22,6 @@ import {
   Hammer,
   BadgeDollarSign,
   UserCheck,
-  CheckCircle2,
 } from "lucide-react";
 
 const valueIconMap = {
@@ -37,44 +40,69 @@ export default function HomePage() {
   return (
     <>
       {/* SECTION A: HERO */}
-      <section className="relative min-h-[85vh] lg:min-h-[90vh] bg-[#0A1E40] text-white flex items-center overflow-hidden">
-        {/* Background Image with sophisticated dark architectural gradient */}
-        <div className="absolute inset-0 z-0">
+      <section className="relative min-h-[85vh] lg:min-h-[92vh] bg-[#0A1E40] text-white flex items-center overflow-hidden">
+        {/* Background Image with slow cinematic scale entrance */}
+        <motion.div
+          initial={{ scale: 1.15, opacity: 0 }}
+          animate={{ scale: 1.03, opacity: 0.45 }}
+          transition={{ duration: 1.8, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
           <Image
             src="/images/hero-modern-house.jpg"
             alt="Modern luxury house built with architectural excellence"
             fill
             priority
-            className="object-cover object-center opacity-40 mix-blend-luminosity scale-105"
+            className="object-cover object-center mix-blend-luminosity"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A1E40] via-[#102C5C]/90 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A1E40] via-transparent to-transparent" />
-        </div>
+        </motion.div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="max-w-3xl">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFD52A]/15 border border-[#FFD52A]/30 text-[#FFD52A] text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm">
+            {/* Eyebrow badge entrance */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFD52A]/15 border border-[#FFD52A]/30 text-[#FFD52A] text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm"
+            >
               <span>Home Design & Construction</span>
               <span>·</span>
               <span>Negombo</span>
-            </div>
+            </motion.div>
 
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white mb-6">
+            {/* Main Heading Entrance */}
+            <motion.h1
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white mb-6"
+            >
               Building Your Vision.{" "}
               <span className="text-[#FFD52A] block sm:inline">
                 Creating Your Future.
               </span>
-            </h1>
+            </motion.h1>
 
-            {/* Description */}
-            <p className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed mb-10 font-normal max-w-2xl">
+            {/* Description Entrance */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
+              className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed mb-10 font-normal max-w-2xl"
+            >
               From complete house construction to the finishing touches, Manjula Constructions helps bring your building ideas to life with quality materials, fair pricing, and dependable workmanship.
-            </p>
+            </motion.p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
+            {/* CTAs Entrance */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="flex flex-wrap items-center gap-4"
+            >
               <Link
                 href="/projects"
                 className="inline-flex items-center gap-2 bg-[#FFD52A] hover:bg-[#F2C71B] text-[#102C5C] font-black text-sm uppercase tracking-wider px-7 py-4 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-[1.02]"
@@ -89,10 +117,15 @@ export default function HomePage() {
               >
                 <span>Discuss Your Project</span>
               </Link>
-            </div>
+            </motion.div>
 
-            {/* Quick trust metrics */}
-            <div className="mt-12 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-3 gap-6 text-left">
+            {/* Quick metrics entrance */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65 }}
+              className="mt-12 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-3 gap-6 text-left"
+            >
               <div>
                 <p className="text-xl sm:text-2xl font-black text-[#FFD52A]">Fair Pricing</p>
                 <p className="text-xs text-gray-300">Accurate estimates, no hidden extras</p>
@@ -105,18 +138,18 @@ export default function HomePage() {
                 <p className="text-xl sm:text-2xl font-black text-[#FFD52A]">Direct Supervision</p>
                 <p className="text-xs text-gray-300">Experienced master workmanship</p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* SECTION B: COMPANY INTRODUCTION */}
-      <section className="py-20 lg:py-28 bg-[#F4F3EF]">
+      <section className="py-20 lg:py-28 bg-[#F4F3EF] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Visual Column */}
-            <div className="lg:col-span-6 relative">
+            {/* Visual Column Entrance from Left */}
+            <AnimatedSection variants={fadeInLeft} className="lg:col-span-6 relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] border-4 border-white">
                 <Image
                   src="/images/about-construction-team.jpg"
@@ -127,8 +160,14 @@ export default function HomePage() {
                 />
               </div>
 
-              {/* Float badge */}
-              <div className="absolute -bottom-6 -right-6 sm:bottom-6 sm:right-6 bg-[#102C5C] text-white p-5 rounded-xl shadow-xl max-w-xs border border-white/15">
+              {/* Floating badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="absolute -bottom-6 -right-6 sm:bottom-6 sm:right-6 bg-[#102C5C] text-white p-5 rounded-xl shadow-xl max-w-xs border border-white/15"
+              >
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-8 h-8 rounded-full bg-[#FFD52A] text-[#102C5C] flex items-center justify-center font-bold">
                     ✓
@@ -138,11 +177,11 @@ export default function HomePage() {
                 <p className="text-xs text-gray-300 leading-snug">
                   Based in Daluwakotuwa, serving residential construction throughout Negombo & surrounding coastal areas.
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatedSection>
 
-            {/* Content Column */}
-            <div className="lg:col-span-6">
+            {/* Content Column Entrance from Right */}
+            <AnimatedSection variants={fadeInRight} className="lg:col-span-6">
               <SectionHeading
                 eyebrow="About Manjula Constructions"
                 title="Construction You Can Trust"
@@ -193,7 +232,7 @@ export default function HomePage() {
                   <span>Call {company.phoneNumbers[0].display}</span>
                 </a>
               </div>
-            </div>
+            </AnimatedSection>
 
           </div>
         </div>
@@ -215,7 +254,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <AnimatedSection delay={0.2} className="mt-12 text-center">
             <Link
               href="/services"
               className="inline-flex items-center gap-2 bg-[#102C5C] hover:bg-[#0A1E40] text-white font-bold text-sm px-8 py-4 rounded-lg shadow-md transition-all hover:scale-105"
@@ -223,7 +262,7 @@ export default function HomePage() {
               <span>View All Detailed Services</span>
               <ArrowRight className="w-4 h-4 text-[#FFD52A]" />
             </Link>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -249,8 +288,8 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
+            {featuredProjects.map((project, idx) => (
+              <ProjectCard key={project.slug} project={project} index={idx} />
             ))}
           </div>
         </div>
@@ -270,12 +309,17 @@ export default function HomePage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {company.sellingPoints.map((point) => {
+            {company.sellingPoints.map((point, index) => {
               const Icon = valueIconMap[point.icon] || ShieldCheck;
               return (
-                <div
+                <motion.div
                   key={point.title}
-                  className="bg-[#0A1E40] border border-white/10 rounded-xl p-8 hover:border-[#FFD52A]/40 transition-all hover:-translate-y-1"
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                  className="bg-[#0A1E40] border border-white/10 rounded-xl p-8 hover:border-[#FFD52A]/40 transition-all shadow-md"
                 >
                   <div className="w-12 h-12 rounded-lg bg-[#FFD52A] text-[#102C5C] flex items-center justify-center font-bold mb-6">
                     <Icon className="w-6 h-6" />
@@ -286,7 +330,7 @@ export default function HomePage() {
                   <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                     {point.description}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -304,9 +348,14 @@ export default function HomePage() {
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {processSteps.slice(0, 5).map((step) => (
-              <div
+            {processSteps.slice(0, 5).map((step, idx) => (
+              <motion.div
                 key={step.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 className="bg-[#F4F3EF] rounded-xl p-6 border border-gray-100 flex flex-col justify-between"
               >
                 <div>
@@ -326,11 +375,11 @@ export default function HomePage() {
                     Milestone Verified ✓
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <AnimatedSection delay={0.2} className="mt-12 text-center">
             <Link
               href="/process"
               className="inline-flex items-center gap-2 text-sm font-bold text-[#102C5C] hover:underline"
@@ -338,7 +387,7 @@ export default function HomePage() {
               <span>Explore Our Full Detailed Process</span>
               <ArrowRight className="w-4 h-4 text-[#FFD52A]" />
             </Link>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -353,11 +402,16 @@ export default function HomePage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {companyValues.map((val) => {
+            {companyValues.map((val, idx) => {
               const Icon = valueIconMap[val.icon] || ShieldCheck;
               return (
-                <div
+                <motion.div
                   key={val.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[#102C5C]/5 text-[#102C5C] flex items-center justify-center mb-4">
@@ -369,7 +423,7 @@ export default function HomePage() {
                   <p className="text-xs text-gray-600 leading-relaxed">
                     {val.description}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>

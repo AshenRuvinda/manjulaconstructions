@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import {
   MessageSquare,
   MapPin,
@@ -28,8 +31,12 @@ export default function ProcessTimeline({ steps }) {
           const isEven = idx % 2 === 0;
 
           return (
-            <div
+            <motion.div
               key={step.step}
+              initial={{ opacity: 0, x: isEven ? 40 : -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className={`relative flex flex-col lg:flex-row items-center gap-8 ${
                 isEven ? "lg:flex-row-reverse" : ""
               }`}
@@ -71,14 +78,20 @@ export default function ProcessTimeline({ steps }) {
                 </div>
               </div>
 
-              {/* Center Node Badge */}
-              <div className="lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10 w-14 h-14 rounded-full bg-[#102C5C] text-[#FFD52A] border-4 border-white shadow-lg flex items-center justify-center shrink-0">
+              {/* Center Node Badge with bounce */}
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10 w-14 h-14 rounded-full bg-[#102C5C] text-[#FFD52A] border-4 border-white shadow-lg flex items-center justify-center shrink-0"
+              >
                 <Icon className="w-6 h-6" />
-              </div>
+              </motion.div>
 
               {/* Empty placeholder to balance layout on desktop */}
               <div className="hidden lg:block w-1/2" />
-            </div>
+            </motion.div>
           );
         })}
       </div>

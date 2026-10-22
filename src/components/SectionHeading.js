@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function SectionHeading({
   eyebrow,
   title,
@@ -6,7 +10,13 @@ export default function SectionHeading({
   light = false,
 }) {
   return (
-    <div className={`mb-12 md:mb-16 ${centered ? "text-center max-w-3xl mx-auto" : "max-w-2xl"}`}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`mb-12 md:mb-16 ${centered ? "text-center max-w-3xl mx-auto" : "max-w-2xl"}`}
+    >
       {eyebrow && (
         <span
           className={`inline-block text-xs font-bold tracking-widest uppercase mb-3 px-3 py-1 rounded-full ${
@@ -34,11 +44,15 @@ export default function SectionHeading({
           {description}
         </p>
       )}
-      <div
-        className={`mt-4 h-1 w-16 bg-[#FFD52A] rounded-full ${
+      <motion.div
+        initial={{ width: 0 }}
+        whileInView={{ width: 64 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className={`mt-4 h-1 bg-[#FFD52A] rounded-full ${
           centered ? "mx-auto" : ""
         }`}
       />
-    </div>
+    </motion.div>
   );
 }

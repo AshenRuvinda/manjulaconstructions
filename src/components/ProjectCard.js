@@ -1,10 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { MapPin, ArrowRight } from "lucide-react";
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, index = 0 }) {
   return (
-    <article className="group bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+    <motion.article
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.55, delay: (index % 3) * 0.12, ease: "easeOut" }}
+      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+      className="group bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+    >
       {/* Image Container with zoom effect */}
       <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
         <Image
@@ -12,11 +22,11 @@ export default function ProjectCard({ project }) {
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
         />
 
         {/* Category Badge */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
           <span className="bg-[#102C5C]/90 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
             {project.category}
           </span>
@@ -35,7 +45,7 @@ export default function ProjectCard({ project }) {
 
         {/* Label clearly identifying sample representation in development */}
         {project.isSample && (
-          <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-[10px] text-gray-200 px-2 py-0.5 rounded">
+          <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-[10px] text-gray-200 px-2 py-0.5 rounded z-10">
             Design Representation
           </div>
         )}
@@ -70,6 +80,6 @@ export default function ProjectCard({ project }) {
           </Link>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -17,6 +17,8 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
+export const instant = false;
+
 export function generateStaticParams() {
   return projects.map((p) => ({
     slug: p.slug,

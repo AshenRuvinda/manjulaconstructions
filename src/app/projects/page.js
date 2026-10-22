@@ -32,12 +32,6 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Development Transparency Banner */}
-      <div className="bg-[#FFF7D6] border-y border-[#FFD52A]/30 py-3 text-xs text-[#102C5C] text-center px-4 font-medium">
-        <span>
-          💡 <strong>Portfolio Note:</strong> The sample images and project representations below showcase our construction capability and aesthetic standards. Real project photographs will be updated as owner-verified case studies are finalized.
-        </span>
-      </div>
 
       {/* Gallery Section with category filtering */}
       <section className="py-20 bg-[#F4F3EF]">

@@ -69,24 +69,24 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo treatment - on mobile show only the logo mark; show text on sm/md+ */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 group-hover:scale-105 transition-transform shrink-0">
+          {/* Logo & Brand Treatment - shown cleanly on mobile and desktop */}
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="relative w-9 h-9 sm:w-11 sm:h-11 group-hover:scale-105 transition-transform shrink-0">
               <Image
                 src="/logo.png"
                 alt="Manjula Constructions Logo"
                 fill
-                sizes="(max-width: 640px) 40px, 44px"
+                sizes="(max-width: 640px) 36px, 44px"
                 priority
                 className="object-contain"
               />
             </div>
-            {/* Brand text hidden on mobile, visible on sm and up */}
-            <div className="hidden sm:flex flex-col whitespace-nowrap select-none brand-title">
-              <span className="brand-name font-black text-lg sm:text-xl tracking-tight text-white leading-none whitespace-nowrap">
+            {/* Brand text visible on mobile and desktop */}
+            <div className="flex flex-col whitespace-nowrap select-none brand-title">
+              <span className="brand-name font-black text-base sm:text-lg lg:text-xl tracking-tight text-white leading-none whitespace-nowrap">
                 MANJULA
               </span>
-              <span className="brand-sub text-[10px] sm:text-[11px] font-semibold tracking-wider text-[#FFD52A] uppercase mt-0.5 whitespace-nowrap">
+              <span className="brand-sub text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-[#FFD52A] uppercase mt-0.5 whitespace-nowrap">
                 Constructions
               </span>
             </div>

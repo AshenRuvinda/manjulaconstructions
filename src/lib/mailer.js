@@ -16,18 +16,34 @@ export async function getEmailTransporter() {
   const pass = process.env.SMTP_PASS;
 
   if (user && pass) {
+    // If using gmail, nodemailer has dedicated built-in service presets
+    const isGmail = host.includes("gmail") || user.includes("gmail");
+
+    const transportOptions = isGmail
+      ? {
+          service: "gmail",
+          auth: {
+            user: user.trim(),
+            pass: pass.trim().replace(/\s+/g, ""), // clean accidental spaces in app password
+          },
+        }
+      : {
+          host,
+          port,
+          secure: port === 465,
+          auth: {
+            user: user.trim(),
+            pass: pass.trim(),
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
+        };
+
     return {
-      transporter: nodemailer.createTransport({
-        host,
-        port,
-        secure: port === 465, // true for 465, false for 587
-        auth: {
-          user,
-          pass,
-        },
-      }),
+      transporter: nodemailer.createTransport(transportOptions),
       isTest: false,
-      from: `"${company.name} Inquiries" <${user}>`,
+      from: `"${company.name}" <${user.trim()}>`,
     };
   }
 

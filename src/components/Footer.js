@@ -120,11 +120,20 @@ export default function Footer() {
             
             <div className="flex items-start gap-3 text-sm">
               <MapPin className="w-5 h-5 text-[#FFD52A] shrink-0 mt-0.5" />
-              <address className="not-italic text-gray-300 text-sm leading-snug">
-                {company.address.line1}<br />
-                {t.topBarLocation}<br />
-                {t.topBarCountry}
-              </address>
+              <a
+                href={company.address.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="not-italic text-gray-300 text-sm leading-snug hover:text-white transition-colors group"
+                title="View Manjula Constructions on Google Maps"
+              >
+                <span>{company.address.line1}</span><br />
+                <span>{t.topBarLocation}</span><br />
+                <span>{t.topBarCountry}</span>
+                <span className="block text-[11px] text-[#FFD52A] font-semibold mt-1 group-hover:underline">
+                  View on Google Maps ↗
+                </span>
+              </a>
             </div>
 
             <div className="space-y-1.5 pt-1">

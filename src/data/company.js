@@ -10,8 +10,13 @@ export const company = {
     city: "Kochchikade, Negombo",
     country: "Sri Lanka",
     full: "No. 560/01, Daluwakotuwa, Kochchikade, Negombo, Sri Lanka",
-    mapQuery: "Daluwakotuwa, Kochchikade, Negombo, Sri Lanka",
-    mapEmbedUrl: "https://www.google.com/maps?q=Daluwakotuwa,+Kochchikade,+Negombo,+Sri+Lanka&output=embed",
+    mapQuery: "Manjula construction, Daluwakotuwa, Kochchikade, Negombo, Sri Lanka",
+    mapsUrl: "https://maps.app.goo.gl/qaVHocVvUXskoezn8",
+    mapEmbedUrl: "https://maps.google.com/maps?q=7.2373444,79.8769673&hl=en&z=17&output=embed",
+    coordinates: {
+      latitude: 7.2373444,
+      longitude: 79.8769673,
+    },
   },
   phoneNumbers: [
     { display: "077 808 8058", raw: "+94778088058", tel: "tel:+94778088058" },
@@ -25,7 +30,7 @@ export const company = {
     display: "076 889 8293",
     defaultMessage: "Hello Manjula Constructions, I would like to inquire about your house design and construction services.",
   },
-  email: "manjulaconstructionssrilanka@gmail.com",
+  email: "manjulaconstructions.support@gmail.com",
   socials: {
     // Only real links configured; placeholder for owner verification
     facebook: "https://facebook.com", // can be updated with official page

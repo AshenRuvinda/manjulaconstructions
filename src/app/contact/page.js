@@ -140,22 +140,33 @@ export default function ContactPage() {
               {/* Google Maps Location Embed */}
               <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-sm text-[#102C5C] uppercase tracking-wider">
-                    {t.contactServiceLocation}
-                  </h3>
-                  <span className="text-xs text-gray-500">{t.topBarLocation}</span>
+                  <div>
+                    <h3 className="font-bold text-sm text-[#102C5C] uppercase tracking-wider">
+                      {t.contactServiceLocation}
+                    </h3>
+                    <span className="text-xs text-gray-500">{t.topBarLocation}</span>
+                  </div>
+                  <a
+                    href={company.address.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#102C5C] hover:text-[#FFD52A] hover:underline transition-colors"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#FFD52A]" />
+                    <span>Open in Maps ↗</span>
+                  </a>
                 </div>
-                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-gray-200">
+                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-gray-200 shadow-inner">
                   <iframe
                     title="Manjula Constructions location in Kochchikade, Negombo"
-                    src="https://maps.google.com/maps?q=Daluwakotuwa,+Kochchikade,+Negombo,+Sri Lanka&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                    src={company.address.mapEmbedUrl}
                     className="w-full h-full border-0"
                     loading="lazy"
                     allowFullScreen
                   />
                 </div>
                 <p className="text-[11px] text-gray-500 mt-3 text-center">
-                  {t.contactMapCoords}
+                  {company.address.full} · Coordinates: 7.2373444, 79.8769673
                 </p>
               </div>
 

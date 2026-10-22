@@ -74,6 +74,12 @@ export function generateLocalBusinessSchema() {
       addressRegion: "Western Province",
       addressCountry: "LK",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: company.address.coordinates.latitude,
+      longitude: company.address.coordinates.longitude,
+    },
+    hasMap: company.address.mapsUrl,
     areaServed: [
       { "@type": "City", name: "Negombo" },
       { "@type": "City", name: "Kochchikade" },

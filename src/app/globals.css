@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -24,6 +25,30 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #252A32;
     overflow-x: hidden;
+  }
+
+  /* Sinhala typography enhancements for optical alignment and clean ascender/descender clearance */
+  html[lang="si"],
+  html[lang="si"] body {
+    font-family: "Noto Sans Sinhala", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7;
+  }
+
+  html[lang="si"] p {
+    overflow-wrap: break-word;
+  }
+
+  html[lang="si"] h1,
+  html[lang="si"] h2,
+  html[lang="si"] h3,
+  html[lang="si"] h4 {
+    line-height: 1.35;
+    letter-spacing: normal;
+  }
+
+  html[lang="si"] button,
+  html[lang="si"] .btn {
+    line-height: 1.4;
   }
 }
 

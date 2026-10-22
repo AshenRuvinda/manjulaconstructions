@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { validateEstimateForm } from "@/lib/validation";
 import { company } from "@/data/company";
-import { Send, CheckCircle2, AlertCircle, Loader2, Phone, MessageCircle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
+import { Send, CheckCircle2, AlertCircle, Loader2, MessageCircle } from "lucide-react";
 
-const projectTypeOptions = [
+const baseProjectTypeOptions = [
   "Complete House Construction",
   "Partition Wall Construction",
   "Plastering & Tile Fixing",
@@ -17,6 +19,9 @@ const projectTypeOptions = [
 ];
 
 export default function EstimateForm() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -152,14 +157,14 @@ export default function EstimateForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="fullName" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-            Full Name <span className="text-red-500">*</span>
+            {t.formFullName} <span className="text-red-500">*</span>
           </label>
           <input
             id="fullName"
             name="fullName"
             type="text"
             required
-            placeholder="e.g. Ashen Fernando"
+            placeholder={t.formFullNamePlaceholder}
             value={formData.fullName}
             onChange={handleChange}
             className={`w-full px-4 py-3 rounded-lg border ${
@@ -173,14 +178,14 @@ export default function EstimateForm() {
 
         <div>
           <label htmlFor="phone" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-            Phone Number <span className="text-red-500">*</span>
+            {t.formPhone} <span className="text-red-500">*</span>
           </label>
           <input
             id="phone"
             name="phone"
             type="tel"
             required
-            placeholder="e.g. 077 808 8058"
+            placeholder={t.formPhonePlaceholder}
             value={formData.phone}
             onChange={handleChange}
             className={`w-full px-4 py-3 rounded-lg border ${
@@ -197,13 +202,13 @@ export default function EstimateForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="email" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-            Email Address <span className="text-gray-400 font-normal">(Optional)</span>
+            {t.formEmail}
           </label>
           <input
             id="email"
             name="email"
             type="email"
-            placeholder="you@example.com"
+            placeholder={t.formEmailPlaceholder}
             value={formData.email}
             onChange={handleChange}
             className={`w-full px-4 py-3 rounded-lg border ${
@@ -217,7 +222,7 @@ export default function EstimateForm() {
 
         <div>
           <label htmlFor="projectType" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-            Project Type <span className="text-red-500">*</span>
+            {t.formProjectType} <span className="text-red-500">*</span>
           </label>
           <select
             id="projectType"
@@ -229,10 +234,10 @@ export default function EstimateForm() {
               errors.projectType ? "border-red-400 bg-red-50/30" : "border-gray-300"
             } focus:ring-2 focus:ring-[#102C5C] focus:border-transparent outline-none text-sm bg-white transition-all`}
           >
-            <option value="">Select service category...</option>
-            {projectTypeOptions.map((type) => (
+            <option value="">{t.formProjectTypePlaceholder}</option>
+            {baseProjectTypeOptions.map((type) => (
               <option key={type} value={type}>
-                {type}
+                {t.projectTypes[type] || type}
               </option>
             ))}
           </select>
@@ -246,14 +251,14 @@ export default function EstimateForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="projectLocation" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-            Project Location <span className="text-red-500">*</span>
+            {t.formProjectLocation} <span className="text-red-500">*</span>
           </label>
           <input
             id="projectLocation"
             name="projectLocation"
             type="text"
             required
-            placeholder="e.g. Kochchikade, Negombo, Katunayake"
+            placeholder={t.formProjectLocationPlaceholder}
             value={formData.projectLocation}
             onChange={handleChange}
             className={`w-full px-4 py-3 rounded-lg border ${
@@ -267,13 +272,13 @@ export default function EstimateForm() {
 
         <div>
           <label htmlFor="budget" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-            Approximate Budget <span className="text-gray-400 font-normal">(Optional)</span>
+            {t.formBudget}
           </label>
           <input
             id="budget"
             name="budget"
             type="text"
-            placeholder="e.g. LKR 3M - 5M or Flexible"
+            placeholder={t.formBudgetPlaceholder}
             value={formData.budget}
             onChange={handleChange}
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#102C5C] focus:border-transparent outline-none text-sm transition-all"
@@ -284,14 +289,14 @@ export default function EstimateForm() {
       {/* Description */}
       <div>
         <label htmlFor="projectDescription" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-2">
-          Project Requirements & Scope <span className="text-red-500">*</span>
+          {t.formDescription} <span className="text-red-500">*</span>
         </label>
         <textarea
           id="projectDescription"
           name="projectDescription"
           rows={4}
           required
-          placeholder="Please describe what you would like to build or renovate (number of floors, rooms, square feet, or finishing work needed)..."
+          placeholder={t.formDescriptionPlaceholder}
           value={formData.projectDescription}
           onChange={handleChange}
           className={`w-full px-4 py-3 rounded-lg border ${
@@ -314,7 +319,7 @@ export default function EstimateForm() {
             className="mt-1 w-4 h-4 text-[#102C5C] border-gray-300 rounded focus:ring-[#102C5C]"
           />
           <span className="text-xs text-gray-600 leading-relaxed">
-            I agree to allow <strong>Manjula Constructions</strong> to review these details and contact me via phone, WhatsApp, or email regarding this construction inquiry.
+            {t.formConsent}
           </span>
         </label>
         {errors.consent && (
@@ -332,11 +337,11 @@ export default function EstimateForm() {
           {status === "submitting" ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Submitting Details...</span>
+              <span>{t.sending}</span>
             </>
           ) : (
             <>
-              <span>Submit Estimate Request</span>
+              <span>{t.formSubmitEstimate}</span>
               <Send className="w-4 h-4" />
             </>
           )}
@@ -344,7 +349,7 @@ export default function EstimateForm() {
       </div>
 
       <p className="text-[11px] text-gray-500 text-center">
-        Prefer to speak immediately? Call us at{" "}
+        {t.estimatePreferPhone}{" "}
         <a href={company.phoneNumbers[0].tel} className="text-[#102C5C] font-bold underline">
           {company.phoneNumbers[0].display}
         </a>

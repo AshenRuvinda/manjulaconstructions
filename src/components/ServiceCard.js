@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 import {
   Home,
   Grid,
@@ -28,6 +30,8 @@ const iconMap = {
 };
 
 export default function ServiceCard({ service, index = 0 }) {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
   const IconComponent = iconMap[service.icon] || Home;
 
   return (
@@ -61,7 +65,7 @@ export default function ServiceCard({ service, index = 0 }) {
           href={`/services#${service.id}`}
           className="text-xs font-bold uppercase tracking-wider text-[#102C5C] flex items-center gap-1.5 transition-colors"
         >
-          <span>Explore Details</span>
+          <span>{t.exploreDetails}</span>
           <ArrowRight className="w-3.5 h-3.5 text-[#FFD52A] group-hover:translate-x-1.5 transition-transform" />
         </Link>
         <span className="text-xs text-gray-400 font-mono">0{index + 1}</span>

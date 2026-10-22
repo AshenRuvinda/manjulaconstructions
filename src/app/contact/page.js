@@ -1,25 +1,20 @@
+"use client";
+
 import { company } from "@/data/company";
 import ContactForm from "@/components/ContactForm";
-import SectionHeading from "@/components/SectionHeading";
-import { constructMetadata } from "@/lib/seo";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 import {
   MapPin,
   Phone,
   MessageCircle,
-  Clock,
-  Mail,
-  ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
 
-export const metadata = constructMetadata({
-  title: "Contact Us | Manjula Constructions Negombo",
-  description:
-    "Get in touch with Manjula Constructions in Kochchikade, Negombo. Call 077 808 8058, 076 323 1495, or 076 889 8293 for residential building inquiries.",
-  pathname: "/contact",
-});
-
 export default function ContactPage() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   return (
     <>
       {/* Hero */}
@@ -28,13 +23,13 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#FFD52A] bg-[#FFD52A]/15 px-3 py-1 rounded-full mb-4">
-              Get in Touch
+              {t.contactHeroBadge}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-4">
-              Contact Manjula Constructions
+              {t.contactHeroTitle}
             </h1>
             <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Have questions about your upcoming home project, architectural finishing, or need an accurate site estimate? We are here to help.
+              {t.contactHeroDesc}
             </p>
           </div>
         </div>
@@ -54,7 +49,7 @@ export default function ContactPage() {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <h2 className="text-xl font-bold text-[#102C5C] mb-2">
-                  Company Location
+                  {t.contactCompanyLocation}
                 </h2>
                 <address className="not-italic text-sm text-gray-600 leading-relaxed mb-4">
                   <strong>{company.name}</strong><br />
@@ -64,7 +59,7 @@ export default function ContactPage() {
                 </address>
                 <div className="inline-flex items-center gap-1.5 text-xs text-[#102C5C] font-semibold bg-[#102C5C]/5 px-3 py-1.5 rounded">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#FFD52A]" />
-                  <span>Serving Negombo & Western Province</span>
+                  <span>{t.contactServingArea}</span>
                 </div>
               </div>
 
@@ -74,10 +69,10 @@ export default function ContactPage() {
                   <Phone className="w-6 h-6" />
                 </div>
                 <h2 className="text-xl font-bold text-[#102C5C] mb-2">
-                  Direct Phone Lines
+                  {t.contactPhoneLines}
                 </h2>
                 <p className="text-xs text-gray-500 mb-4">
-                  Tap any number below to connect directly with our builders:
+                  {t.contactPhoneHelp}
                 </p>
 
                 <div className="space-y-3">
@@ -96,7 +91,7 @@ export default function ContactPage() {
                         </span>
                       </div>
                       <span className="text-xs font-semibold text-[#102C5C] group-hover:underline">
-                        Call &rarr;
+                        {t.contactCallAction}
                       </span>
                     </a>
                   ))}
@@ -110,12 +105,12 @@ export default function ContactPage() {
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-base text-white">Chat on WhatsApp</h3>
-                    <p className="text-xs text-gray-300">Quick inquiries & photo sharing</p>
+                    <h3 className="font-bold text-base text-white">{t.chatWhatsApp}</h3>
+                    <p className="text-xs text-gray-300">{t.contactWhatsAppSub}</p>
                   </div>
                 </div>
                 <p className="text-xs text-gray-300 leading-relaxed mb-6">
-                  You can message us directly with floor plans, site photos, or questions at our confirmed WhatsApp number.
+                  {t.contactWhatsAppDesc}
                 </p>
                 <a
                   href={`https://wa.me/${company.whatsapp.number}?text=${encodeURIComponent(company.whatsapp.defaultMessage)}`}
@@ -124,7 +119,7 @@ export default function ContactPage() {
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-lg transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>Open WhatsApp ({company.whatsapp.display})</span>
+                  <span>{t.openWhatsApp} ({company.whatsapp.display})</span>
                 </a>
               </div>
 
@@ -134,10 +129,10 @@ export default function ContactPage() {
             <div className="lg:col-span-7 space-y-8">
               <div>
                 <h2 className="text-2xl font-black text-[#102C5C] mb-2">
-                  Send a Direct Message
+                  {t.contactSendMessageTitle}
                 </h2>
                 <p className="text-sm text-gray-600 mb-6">
-                  Fill in your contact details below and our team will get in touch with you promptly.
+                  {t.contactSendMessageDesc}
                 </p>
                 <ContactForm />
               </div>
@@ -146,21 +141,21 @@ export default function ContactPage() {
               <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-bold text-sm text-[#102C5C] uppercase tracking-wider">
-                    Our Service Location
+                    {t.contactServiceLocation}
                   </h3>
-                  <span className="text-xs text-gray-500">Kochchikade, Negombo</span>
+                  <span className="text-xs text-gray-500">{t.topBarLocation}</span>
                 </div>
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-gray-200">
                   <iframe
                     title="Manjula Constructions location in Kochchikade, Negombo"
-                    src="https://maps.google.com/maps?q=Daluwakotuwa,+Kochchikade,+Negombo,+Sri+Lanka&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=Daluwakotuwa,+Kochchikade,+Negombo,+Sri Lanka&t=&z=14&ie=UTF8&iwloc=&output=embed"
                     className="w-full h-full border-0"
                     loading="lazy"
                     allowFullScreen
                   />
                 </div>
                 <p className="text-[11px] text-gray-500 mt-3 text-center">
-                  Coordinates verified for Daluwakotuwa, Kochchikade, Negombo, Sri Lanka.
+                  {t.contactMapCoords}
                 </p>
               </div>
 

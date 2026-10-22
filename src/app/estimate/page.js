@@ -1,17 +1,15 @@
+"use client";
+
 import { company } from "@/data/company";
 import EstimateForm from "@/components/EstimateForm";
-import SectionHeading from "@/components/SectionHeading";
-import { constructMetadata } from "@/lib/seo";
-import { Calculator, ShieldCheck, Phone, MessageCircle } from "lucide-react";
-
-export const metadata = constructMetadata({
-  title: "Request an Estimate | Manjula Constructions Negombo",
-  description:
-    "Share your construction requirements and our team will contact you to discuss plans, provide an accurate cost estimate, and schedule a site review.",
-  pathname: "/estimate",
-});
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
+import { Calculator, Phone, MessageCircle } from "lucide-react";
 
 export default function EstimatePage() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   return (
     <>
       {/* Hero */}
@@ -20,13 +18,13 @@ export default function EstimatePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#FFD52A] bg-[#FFD52A]/15 px-3 py-1 rounded-full mb-4">
-              Project Consultation & Estimation
+              {t.estimateHeroBadge}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-4">
-              Tell Us About Your Project
+              {t.estimateHeroTitle}
             </h1>
             <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Share your construction requirements and our team can contact you to discuss the next steps, site assessment, and project scope.
+              {t.estimateHeroDesc}
             </p>
           </div>
         </div>
@@ -50,23 +48,23 @@ export default function EstimatePage() {
                   <Calculator className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-bold text-[#102C5C] mb-2">
-                  Accurate & Fair Estimations
+                  {t.estimateBoxTitle}
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
-                  We prepare estimations calculated with verified material quantities and realistic rates for skilled labor in the Negombo region.
+                  {t.estimateBoxDesc}
                 </p>
                 <div className="space-y-2 text-xs text-gray-700">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FFD52A]" />
-                    <span>Clear stage-wise milestone payments</span>
+                    <span>{t.estimatePoint1}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FFD52A]" />
-                    <span>Quality materials specification</span>
+                    <span>{t.estimatePoint2}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FFD52A]" />
-                    <span>Zero hidden contractor surcharges</span>
+                    <span>{t.estimatePoint3}</span>
                   </div>
                 </div>
               </div>
@@ -74,10 +72,10 @@ export default function EstimatePage() {
               {/* Direct Call Option */}
               <div className="bg-[#102C5C] text-white p-6 sm:p-8 rounded-2xl shadow-sm">
                 <h3 className="text-lg font-bold text-white mb-2">
-                  Prefer to Inquire by Phone?
+                  {t.estimatePreferPhone}
                 </h3>
                 <p className="text-xs text-gray-300 mb-6">
-                  Our team is available to discuss your building plans and answer questions directly.
+                  {t.estimatePhoneDesc}
                 </p>
 
                 <div className="space-y-2.5">
@@ -101,14 +99,14 @@ export default function EstimatePage() {
                     className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold py-3 rounded-lg transition-transform hover:scale-102"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>WhatsApp Inquiry: {company.whatsapp.display}</span>
+                    <span>{t.openWhatsApp} ({company.whatsapp.display})</span>
                   </a>
                 </div>
               </div>
 
               {/* Company Location Reminder */}
               <div className="p-4 rounded-xl border border-gray-200 bg-white text-xs text-gray-600">
-                <p className="font-bold text-[#102C5C] mb-1">Office Location:</p>
+                <p className="font-bold text-[#102C5C] mb-1">{t.estimateOfficeLocation}</p>
                 <p>{company.address.full}</p>
               </div>
             </div>

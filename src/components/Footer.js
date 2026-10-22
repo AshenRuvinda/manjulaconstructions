@@ -1,11 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { company, navigationLinks } from "@/data/company";
-import { services } from "@/data/services";
-import { Phone, MapPin, MessageCircle, ArrowRight, ShieldCheck, Hammer } from "lucide-react";
+import { company } from "@/data/company";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, localizedNavigation, localizedServices } from "@/data/translations";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { Phone, MapPin, MessageCircle, ArrowRight, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
   const currentYear = 2026;
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+  const navLinks = localizedNavigation[language] || localizedNavigation.en;
+  const srvList = localizedServices[language] || localizedServices.en;
 
   return (
     <footer className="bg-[#0A1E40] text-gray-300 pt-16 pb-10 border-t border-white/10">
@@ -35,13 +43,16 @@ export default function Footer() {
             </div>
             
             <p className="text-sm text-gray-400 leading-relaxed">
-              Professional home design and construction services based in Kochchikade, Negombo. We build modern, durable homes with quality materials, accurate estimates, and dependable workmanship.
+              {t.footerProfileDesc}
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-3">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/5 border border-white/10 text-xs text-[#FFD52A]">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Fair Pricing · Direct Supervision</span>
+                <span>{t.footerTrustBadge}</span>
+              </div>
+              <div>
+                <LanguageSwitch variant="default" />
               </div>
             </div>
           </div>
@@ -50,10 +61,10 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold text-sm tracking-wider uppercase mb-4 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#FFD52A]"></span>
-              Quick Navigation
+              {t.footerQuickNav}
             </h3>
             <ul className="space-y-2.5 text-sm">
-              {navigationLinks.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -70,7 +81,7 @@ export default function Footer() {
                   className="hover:text-[#FFD52A] transition-colors flex items-center gap-1.5 text-xs text-gray-400"
                 >
                   <ArrowRight className="w-3 h-3 text-white/40" />
-                  <span>Privacy Policy</span>
+                  <span>{t.footerPrivacy}</span>
                 </Link>
               </li>
             </ul>
@@ -80,13 +91,13 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold text-sm tracking-wider uppercase mb-4 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#FFD52A]"></span>
-              Our Services
+              {t.footerOurServices}
             </h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              {services.slice(0, 7).map((srv) => (
+              {srvList.slice(0, 7).map((srv) => (
                 <li key={srv.id}>
                   <Link
-                    href="/services"
+                    href={`/services#${srv.id}`}
                     className="hover:text-white transition-colors block truncate"
                   >
                     {srv.title}
@@ -98,7 +109,7 @@ export default function Footer() {
                   href="/services"
                   className="text-[#FFD52A] hover:underline text-xs font-semibold inline-flex items-center gap-1 mt-1"
                 >
-                  View all services &rarr;
+                  {t.allServices} &rarr;
                 </Link>
               </li>
             </ul>
@@ -108,15 +119,15 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-white font-bold text-sm tracking-wider uppercase mb-4 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#FFD52A]"></span>
-              Contact Us
+              {t.footerContactInfo}
             </h3>
             
             <div className="flex items-start gap-3 text-sm">
               <MapPin className="w-5 h-5 text-[#FFD52A] shrink-0 mt-0.5" />
               <address className="not-italic text-gray-300 text-sm leading-snug">
                 {company.address.line1}<br />
-                {company.address.city}<br />
-                {company.address.country}
+                {t.topBarLocation}<br />
+                {t.topBarCountry}
               </address>
             </div>
 
@@ -151,15 +162,15 @@ export default function Footer() {
         {/* Bottom copyright & disclaimer */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
           <p>
-            © {currentYear} {company.name} · {company.category}. All rights reserved.
+            © {currentYear} {company.name} · {company.category}. {t.footerAllRightsReserved}
           </p>
           <div className="flex items-center gap-4">
             <p>
-              Serving Negombo, Kochchikade, Katunayake & Western Province
+              {t.footerServingNote}
             </p>
             <span>•</span>
             <Link href="/privacy-policy" className="hover:text-white underline">
-              Privacy Notice
+              {t.footerPrivacy}
             </Link>
           </div>
         </div>

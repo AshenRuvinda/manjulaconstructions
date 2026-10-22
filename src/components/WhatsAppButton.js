@@ -2,8 +2,13 @@
 
 import { MessageCircle } from "lucide-react";
 import { company } from "@/data/company";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function WhatsAppButton() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   const whatsappUrl = `https://wa.me/${company.whatsapp.number}?text=${encodeURIComponent(
     company.whatsapp.defaultMessage
   )}`;
@@ -19,7 +24,7 @@ export default function WhatsAppButton() {
       >
         <MessageCircle className="w-6 h-6 shrink-0 fill-current" />
         <span className="hidden sm:inline-block text-xs font-bold tracking-wide">
-          WhatsApp Us
+          {t.whatsAppUs}
         </span>
         <span className="absolute -top-1 -right-1 flex h-3 w-3">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>

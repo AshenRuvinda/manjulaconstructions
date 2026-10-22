@@ -3,9 +3,14 @@
 import { useState } from "react";
 import { validateContactForm } from "@/lib/validation";
 import { company } from "@/data/company";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 export default function ContactForm() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -51,14 +56,14 @@ export default function ContactForm() {
 
       if (res.ok) {
         setStatus("success");
-        setServerMsg(data.message || "Thank you. Your message has been sent successfully.");
+        setServerMsg(t.formSuccess);
       } else {
         setStatus("error");
-        setServerMsg(data.error || "Failed to send message. Please contact us directly by phone.");
+        setServerMsg(data.error || t.formError);
       }
     } catch {
       setStatus("error");
-      setServerMsg("Network error occurred. Please call or WhatsApp us directly.");
+      setServerMsg(t.formError);
     }
   };
 
@@ -98,14 +103,14 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="contact-name" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-1.5">
-          Your Name <span className="text-red-500">*</span>
+          {t.formFullName} <span className="text-red-500">*</span>
         </label>
         <input
           id="contact-name"
           name="name"
           type="text"
           required
-          placeholder="e.g. Priyantha Silva"
+          placeholder={t.formFullNamePlaceholder}
           value={formData.name}
           onChange={handleChange}
           className={`w-full px-4 py-2.5 rounded-lg border ${
@@ -118,13 +123,13 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="contact-phone" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-1.5">
-            Phone Number
+            {t.formPhone}
           </label>
           <input
             id="contact-phone"
             name="phone"
             type="tel"
-            placeholder="077..."
+            placeholder={t.formPhonePlaceholder}
             value={formData.phone}
             onChange={handleChange}
             className={`w-full px-4 py-2.5 rounded-lg border ${
@@ -136,13 +141,13 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="contact-email" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-1.5">
-            Email Address
+            {t.formEmail}
           </label>
           <input
             id="contact-email"
             name="email"
             type="email"
-            placeholder="you@email.com"
+            placeholder={t.formEmailPlaceholder}
             value={formData.email}
             onChange={handleChange}
             className={`w-full px-4 py-2.5 rounded-lg border ${
@@ -157,13 +162,13 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="contact-subject" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-1.5">
-          Subject / Inquiry Topic
+          {t.formSubject}
         </label>
         <input
           id="contact-subject"
           name="subject"
           type="text"
-          placeholder="e.g. New House Construction Inquiry"
+          placeholder={t.formSubjectPlaceholder}
           value={formData.subject}
           onChange={handleChange}
           className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#102C5C] outline-none text-sm"
@@ -172,14 +177,14 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="contact-message" className="block text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-1.5">
-          Message <span className="text-red-500">*</span>
+          {t.formMessage} <span className="text-red-500">*</span>
         </label>
         <textarea
           id="contact-message"
           name="message"
           rows={4}
           required
-          placeholder="Tell us what you are planning or how we can assist..."
+          placeholder={t.formMessagePlaceholder}
           value={formData.message}
           onChange={handleChange}
           className={`w-full px-4 py-2.5 rounded-lg border ${
@@ -197,11 +202,11 @@ export default function ContactForm() {
         {status === "submitting" ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin text-[#FFD52A]" />
-            <span>Sending Message...</span>
+            <span>{t.sending}</span>
           </>
         ) : (
           <>
-            <span>Send Direct Message</span>
+            <span>{t.sendMessage}</span>
             <Send className="w-4 h-4 text-[#FFD52A]" />
           </>
         )}

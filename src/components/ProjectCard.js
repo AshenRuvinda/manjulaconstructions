@@ -3,9 +3,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 import { MapPin, ArrowRight } from "lucide-react";
 
 export default function ProjectCard({ project, index = 0 }) {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
+  const displayStatus =
+    project.status === "Completed"
+      ? t.projectStatusCompleted
+      : project.status === "Under Construction"
+      ? t.projectStatusUnderConstruction
+      : project.status;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 35 }}
@@ -38,7 +50,7 @@ export default function ProjectCard({ project, index = 0 }) {
                   : "bg-[#FFD52A]/90 text-[#102C5C]"
               }`}
             >
-              {project.status}
+              {displayStatus}
             </span>
           )}
         </div>
@@ -46,7 +58,7 @@ export default function ProjectCard({ project, index = 0 }) {
         {/* Label clearly identifying sample representation in development */}
         {project.isSample && (
           <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-[10px] text-gray-200 px-2 py-0.5 rounded z-10">
-            Design Representation
+            {t.projectDesignRep}
           </div>
         )}
       </div>
@@ -75,7 +87,7 @@ export default function ProjectCard({ project, index = 0 }) {
             href={`/projects/${project.slug}`}
             className="text-xs font-bold uppercase tracking-wider text-[#102C5C] flex items-center gap-1 group-hover:gap-2 transition-all"
           >
-            <span>View Project</span>
+            <span>{t.viewProject}</span>
             <ArrowRight className="w-3.5 h-3.5 text-[#FFD52A]" />
           </Link>
         </div>

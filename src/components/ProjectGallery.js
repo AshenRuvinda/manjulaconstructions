@@ -2,10 +2,20 @@
 
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
-import { projectCategories } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function ProjectGallery({ projects }) {
   const [activeCategory, setActiveCategory] = useState("all");
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
+  const categories = [
+    { label: t.filterAll, value: "all" },
+    { label: t.filterHouse, value: "house-construction" },
+    { label: t.filterOngoing, value: "ongoing-projects" },
+    { label: t.filterRenovation, value: "renovation-finishing" },
+  ];
 
   const filteredProjects =
     activeCategory === "all"
@@ -16,7 +26,7 @@ export default function ProjectGallery({ projects }) {
     <div>
       {/* Category Filter Pills */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
-        {projectCategories.map((cat) => {
+        {categories.map((cat) => {
           const isActive = activeCategory === cat.value;
           return (
             <button
@@ -44,7 +54,7 @@ export default function ProjectGallery({ projects }) {
       ) : (
         <div className="text-center py-16 bg-white rounded-xl border border-dashed border-gray-300 p-8">
           <p className="text-gray-500 font-medium">
-            No projects found in this category.
+            {t.noProjectsFound}
           </p>
         </div>
       )}

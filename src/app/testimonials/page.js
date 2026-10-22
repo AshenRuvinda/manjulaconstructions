@@ -1,16 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { testimonials, companyValues } from "@/data/testimonials";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, localizedCompanyValues } from "@/data/translations";
+import { testimonials } from "@/data/testimonials";
 import SectionHeading from "@/components/SectionHeading";
 import ContactCTA from "@/components/ContactCTA";
-import { constructMetadata } from "@/lib/seo";
 import { ShieldCheck, MessageSquare, BadgeDollarSign, Hammer, UserCheck, ArrowRight } from "lucide-react";
-
-export const metadata = constructMetadata({
-  title: "Client Testimonials & Values | Manjula Constructions",
-  description:
-    "Review genuine client feedback and our unwavering core commitments to quality, honest pricing, and trustworthy residential construction in Negombo.",
-  pathname: "/testimonials",
-});
 
 const valueIconMap = {
   BadgeDollarSign,
@@ -20,6 +16,9 @@ const valueIconMap = {
 };
 
 export default function TestimonialsPage() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+  const values = localizedCompanyValues[language] || localizedCompanyValues.en;
   const hasTestimonials = testimonials && testimonials.length > 0;
 
   return (
@@ -30,13 +29,13 @@ export default function TestimonialsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#FFD52A] bg-[#FFD52A]/15 px-3 py-1 rounded-full mb-4">
-              Feedback & Core Commitments
+              {t.testHeroBadge}
             </span>
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight mb-6">
-              Built on Trust & Proven Standards
+              {t.testHeroTitle}
             </h1>
             <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              We take pride in our honest reputation throughout Kochchikade and Negombo. We never invent reviews or fabricate client stories.
+              {t.testHeroDesc}
             </p>
           </div>
         </div>
@@ -47,17 +46,17 @@ export default function TestimonialsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {hasTestimonials ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {testimonials.map((t) => (
+              {testimonials.map((item) => (
                 <div
-                  key={t.id}
+                  key={item.id}
                   className="bg-[#F4F3EF] p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between"
                 >
                   <p className="text-sm text-gray-700 italic leading-relaxed mb-6">
-                    &ldquo;{t.comment}&rdquo;
+                    &ldquo;{item.comment}&rdquo;
                   </p>
                   <div>
-                    <h4 className="font-bold text-[#102C5C] text-sm">{t.clientName}</h4>
-                    <p className="text-xs text-gray-500">{t.location} · {t.projectType}</p>
+                    <h4 className="font-bold text-[#102C5C] text-sm">{item.clientName}</h4>
+                    <p className="text-xs text-gray-500">{item.location} · {item.projectType}</p>
                   </div>
                 </div>
               ))}
@@ -70,16 +69,16 @@ export default function TestimonialsPage() {
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <h2 className="text-2xl font-black text-[#102C5C] mb-3">
-                  Verified Client Feedback Policy
+                  {t.testPolicyTitle}
                 </h2>
                 <p className="text-sm text-gray-600 leading-relaxed max-w-xl mx-auto mb-6">
-                  At Manjula Constructions, integrity is central to everything we do. We do not display artificial ratings or fabricated customer testimonials. Verified feedback from completed homeowners will appear here upon authorization.
+                  {t.testPolicyDesc}
                 </p>
                 <Link
                   href="/contact"
                   className="inline-flex items-center gap-2 bg-[#102C5C] text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded-lg hover:bg-[#0A1E40] transition-colors"
                 >
-                  <span>Speak with Our Team Directly</span>
+                  <span>{t.testSpeakTeam}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#FFD52A]" />
                 </Link>
               </div>
@@ -88,13 +87,13 @@ export default function TestimonialsPage() {
               <div>
                 <SectionHeading
                   centered
-                  eyebrow="Our Foundation"
-                  title="The Values That Guide Every Build"
-                  description="What you can depend on when choosing Manjula Constructions for your home."
+                  eyebrow={t.testFoundationEyebrow}
+                  title={t.testFoundationTitle}
+                  description={t.testFoundationDesc}
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {companyValues.map((val) => {
+                  {values.map((val) => {
                     const Icon = valueIconMap[val.icon] || ShieldCheck;
                     return (
                       <div

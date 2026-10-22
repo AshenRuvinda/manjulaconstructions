@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { services } from "@/data/services";
 import { company } from "@/data/company";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, localizedServices } from "@/data/translations";
 import SectionHeading from "@/components/SectionHeading";
 import ContactCTA from "@/components/ContactCTA";
-import { constructMetadata } from "@/lib/seo";
 import {
   Home,
   Grid,
@@ -20,13 +22,6 @@ import {
   Phone,
 } from "lucide-react";
 
-export const metadata = constructMetadata({
-  title: "Services | House Construction & Finishing in Negombo",
-  description:
-    "Explore our complete range of construction services: house building, partition walls, plastering, tile fixing, ceiling work, electrical, plumbing, aluminium work, and finishes.",
-  pathname: "/services",
-});
-
 const iconMap = {
   Home,
   Grid,
@@ -40,6 +35,10 @@ const iconMap = {
 };
 
 export default function ServicesPage() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+  const currentServices = localizedServices[language] || localizedServices.en;
+
   return (
     <>
       {/* Hero */}
@@ -48,13 +47,13 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#FFD52A] bg-[#FFD52A]/15 px-3 py-1 rounded-full mb-4">
-              Comprehensive House Construction
+              {t.servicesEyebrow}
             </span>
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight mb-6">
-              Construction Services for Every Stage of Your Home
+              {t.servicesPageTitle}
             </h1>
             <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              We undertake all types of residential construction and house finishing work in Kochchikade, Negombo. Using high-grade materials and experienced workmanship, we build homes with longevity and finesse.
+              {t.servicesPageDescription}
             </p>
           </div>
         </div>
@@ -65,18 +64,18 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div>
-              <p className="text-xs uppercase font-bold text-[#102C5C] tracking-wider">
-                Our Guarantee of Material Standards
+              <p className="text-xs uppercase font-bold text-[#102C5C] tracking-wider mb-1">
+                {t.srvGuaranteeTitle}
               </p>
               <p className="text-sm text-gray-600">
-                Construction using quality materials is standard practice across every single trade we perform.
+                {t.srvGuaranteeDesc}
               </p>
             </div>
             <Link
               href="/estimate"
               className="inline-flex items-center gap-2 bg-[#102C5C] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg hover:bg-[#0A1E40] transition-colors shrink-0"
             >
-              <span>Inquire for Your Project</span>
+              <span>{t.srvInquireBtn}</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#FFD52A]" />
             </Link>
           </div>
@@ -86,7 +85,7 @@ export default function ServicesPage() {
       {/* Detailed Services Listing */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          {services.map((srv, index) => {
+          {currentServices.map((srv, index) => {
             const IconComponent = iconMap[srv.icon] || Home;
             const isReversed = index % 2 !== 0;
 
@@ -144,7 +143,7 @@ export default function ServicesPage() {
                     {/* Typical Requirements */}
                     <div className="mb-6 p-4 rounded-xl bg-[#F4F3EF] border border-gray-200">
                       <p className="text-xs font-bold text-[#102C5C] uppercase tracking-wider mb-1">
-                        Typical Application & Need:
+                        {t.servicesWhyItMatters}
                       </p>
                       <p className="text-xs text-gray-600 leading-relaxed">
                         {srv.requirementsAddressed}
@@ -167,7 +166,7 @@ export default function ServicesPage() {
                         href={`/estimate?service=${encodeURIComponent(srv.title)}`}
                         className="inline-flex items-center gap-2 bg-[#FFD52A] hover:bg-[#F2C71B] text-[#102C5C] font-extrabold text-xs uppercase tracking-wider px-5 py-3 rounded-lg shadow-sm transition-all hover:scale-105"
                       >
-                        <span>Request Service Estimate</span>
+                        <span>{t.requestEstimate}</span>
                         <ArrowRight className="w-4 h-4" />
                       </Link>
 
@@ -176,7 +175,7 @@ export default function ServicesPage() {
                         className="inline-flex items-center gap-2 border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold text-xs px-4 py-3 rounded-lg transition-colors"
                       >
                         <Phone className="w-3.5 h-3.5 text-[#102C5C]" />
-                        <span>Call to Inquire</span>
+                        <span>{t.callDirectly}</span>
                       </a>
                     </div>
                   </div>
@@ -192,9 +191,9 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             centered
-            eyebrow="Easy Inquiries"
-            title="How to Get Started with Any Service"
-            description="Whether you require individual plastering and tiling work or a full turnkey house build, our team is ready to consult with you."
+            eyebrow={t.startServiceEyebrow}
+            title={t.startServiceTitle}
+            description={t.startServiceDesc}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -202,9 +201,9 @@ export default function ServicesPage() {
               <span className="w-10 h-10 rounded-full bg-[#102C5C] text-[#FFD52A] font-bold text-sm inline-flex items-center justify-center mb-4">
                 1
               </span>
-              <h3 className="font-bold text-[#102C5C] mb-2">Share Your Requirements</h3>
-              <p className="text-xs text-gray-600">
-                Call our team or submit our simple estimate form detailing what work is needed.
+              <h3 className="font-bold text-[#102C5C] mb-2">{t.startStep1Title}</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                {t.startStep1Desc}
               </p>
             </div>
 
@@ -212,9 +211,9 @@ export default function ServicesPage() {
               <span className="w-10 h-10 rounded-full bg-[#102C5C] text-[#FFD52A] font-bold text-sm inline-flex items-center justify-center mb-4">
                 2
               </span>
-              <h3 className="font-bold text-[#102C5C] mb-2">Site Assessment & Scope</h3>
-              <p className="text-xs text-gray-600">
-                We review drawings or visit your location in Negombo to confirm exact measurements.
+              <h3 className="font-bold text-[#102C5C] mb-2">{t.startStep2Title}</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                {t.startStep2Desc}
               </p>
             </div>
 
@@ -222,9 +221,9 @@ export default function ServicesPage() {
               <span className="w-10 h-10 rounded-full bg-[#102C5C] text-[#FFD52A] font-bold text-sm inline-flex items-center justify-center mb-4">
                 3
               </span>
-              <h3 className="font-bold text-[#102C5C] mb-2">Transparent Estimate</h3>
-              <p className="text-xs text-gray-600">
-                Receive an accurate, itemized quotation reflecting fair market prices and quality materials.
+              <h3 className="font-bold text-[#102C5C] mb-2">{t.startStep3Title}</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                {t.startStep3Desc}
               </p>
             </div>
           </div>

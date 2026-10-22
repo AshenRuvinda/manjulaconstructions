@@ -4,10 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { company } from "@/data/company";
-import { services } from "@/data/services";
-import { projects } from "@/data/projects";
-import { processSteps } from "@/data/process";
-import { companyValues } from "@/data/testimonials";
+import { useLanguage } from "@/context/LanguageContext";
+import {
+  translations,
+  localizedServices,
+  localizedProjects,
+  localizedProcess,
+  localizedCompanyValues,
+} from "@/data/translations";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
 import ProjectCard from "@/components/ProjectCard";
@@ -34,8 +38,15 @@ const valueIconMap = {
 };
 
 export default function HomePage() {
-  const featuredServices = services.slice(0, 9);
-  const featuredProjects = projects.slice(0, 3);
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+  const currentServices = localizedServices[language] || localizedServices.en;
+  const currentProjects = localizedProjects[language] || localizedProjects.en;
+  const currentProcess = localizedProcess[language] || localizedProcess.en;
+  const currentValues = localizedCompanyValues[language] || localizedCompanyValues.en;
+
+  const featuredServices = currentServices.slice(0, 9);
+  const featuredProjects = currentProjects.slice(0, 3);
 
   return (
     <>
@@ -94,9 +105,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFD52A]/15 border border-[#FFD52A]/30 text-[#FFD52A] text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm"
             >
-              <span>Home Design & Construction</span>
-              <span>·</span>
-              <span>Negombo</span>
+              <span>{t.heroBadge}</span>
             </motion.div>
 
             {/* Main Heading Entrance */}
@@ -104,11 +113,11 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white mb-6"
+              className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] sm:leading-[1.1] text-white mb-6"
             >
-              Building Your Vision.{" "}
+              {t.heroTitleLine1}{" "}
               <span className="text-[#FFD52A] block sm:inline">
-                Creating Your Future.
+                {t.heroTitleLine2}
               </span>
             </motion.h1>
 
@@ -117,9 +126,9 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
-              className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed mb-10 font-normal max-w-2xl"
+              className="text-sm sm:text-lg lg:text-xl text-gray-200 leading-relaxed mb-8 sm:mb-10 font-normal max-w-2xl"
             >
-              From complete house construction to the finishing touches, Manjula Constructions helps bring your building ideas to life with quality materials, fair pricing, and dependable workmanship.
+              {t.heroDescription}
             </motion.p>
 
             {/* CTAs Entrance */}
@@ -127,21 +136,21 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="flex flex-wrap items-center gap-4"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pb-2"
             >
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 bg-[#FFD52A] hover:bg-[#F2C71B] text-[#102C5C] font-black text-sm uppercase tracking-wider px-7 py-4 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2 bg-[#FFD52A] hover:bg-[#F2C71B] text-[#102C5C] font-black text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-7 py-3.5 sm:py-4 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-[1.02] text-center"
               >
-                <span>Explore Our Projects</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>{t.exploreProjects}</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
 
               <Link
                 href="/estimate"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-6 py-4 rounded-lg border border-white/25 backdrop-blur-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-6 py-3.5 sm:py-4 rounded-lg border border-white/25 backdrop-blur-sm transition-all text-center"
               >
-                <span>Discuss Your Project</span>
+                <span>{t.discussProject}</span>
               </Link>
             </motion.div>
 
@@ -150,19 +159,19 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.65 }}
-              className="mt-12 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-3 gap-6 text-left"
+              className="mt-12 pt-8 border-t border-white/15 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 text-left"
             >
-              <div>
-                <p className="text-xl sm:text-2xl font-black text-[#FFD52A]">Fair Pricing</p>
-                <p className="text-xs text-gray-300">Accurate estimates, no hidden extras</p>
+              <div className="bg-white/5 sm:bg-transparent p-3 sm:p-0 rounded-lg sm:rounded-none">
+                <p className="text-xl sm:text-2xl font-black text-[#FFD52A] leading-tight mb-1">{t.heroMetric1Title}</p>
+                <p className="text-xs text-gray-300 leading-relaxed">{t.heroMetric1Desc}</p>
               </div>
-              <div>
-                <p className="text-xl sm:text-2xl font-black text-white">Quality Materials</p>
-                <p className="text-xs text-gray-300">Tested cement, steel & certified fittings</p>
+              <div className="bg-white/5 sm:bg-transparent p-3 sm:p-0 rounded-lg sm:rounded-none">
+                <p className="text-xl sm:text-2xl font-black text-white leading-tight mb-1">{t.heroMetric2Title}</p>
+                <p className="text-xs text-gray-300 leading-relaxed">{t.heroMetric2Desc}</p>
               </div>
-              <div className="col-span-2 sm:col-span-1">
-                <p className="text-xl sm:text-2xl font-black text-[#FFD52A]">Direct Supervision</p>
-                <p className="text-xs text-gray-300">Experienced master workmanship</p>
+              <div className="bg-white/5 sm:bg-transparent p-3 sm:p-0 rounded-lg sm:rounded-none">
+                <p className="text-xl sm:text-2xl font-black text-[#FFD52A] leading-tight mb-1">{t.heroMetric3Title}</p>
+                <p className="text-xs text-gray-300 leading-relaxed">{t.heroMetric3Desc}</p>
               </div>
             </motion.div>
           </div>
@@ -209,9 +218,9 @@ export default function HomePage() {
             {/* Content Column Entrance from Right */}
             <AnimatedSection variants={fadeInRight} className="lg:col-span-6">
               <SectionHeading
-                eyebrow="About Manjula Constructions"
-                title="Construction You Can Trust"
-                description="Manjula Constructions is a dedicated home design and construction firm based in Daluwakotuwa, Kochchikade. We take pride in building solid residential houses with authentic craftsmanship, honest cost forecasts, and direct on-site supervision."
+                eyebrow={t.introEyebrow}
+                title={t.introTitle}
+                description={t.introPara1}
               />
 
               <div className="space-y-4 mb-8">
@@ -220,7 +229,7 @@ export default function HomePage() {
                     ✓
                   </div>
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    <strong>Complete Turnkey Solutions:</strong> From foundation excavation and structural columns to roof truss installations and key handover.
+                    <strong>{t.introFeature1}:</strong> {t.introFeature1Desc}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -228,7 +237,7 @@ export default function HomePage() {
                     ✓
                   </div>
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    <strong>Comprehensive House Finishing:</strong> Precision tile fixing, gypsum false ceilings, aluminium sliding frames, and multi-coat paintwork.
+                    <strong>{t.introFeature2}:</strong> {t.introFeature2Desc}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -236,7 +245,7 @@ export default function HomePage() {
                     ✓
                   </div>
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    <strong>Transparent Financials:</strong> Clear payment milestones linked directly to actual completed stages with no surprise charges.
+                    <strong>{t.introFeature4}:</strong> {t.introFeature4Desc}
                   </p>
                 </div>
               </div>
@@ -246,7 +255,7 @@ export default function HomePage() {
                   href="/about"
                   className="inline-flex items-center gap-2 bg-[#102C5C] hover:bg-[#0A1E40] text-white font-bold text-sm px-6 py-3.5 rounded-lg transition-colors"
                 >
-                  <span>Learn About Our Company</span>
+                  <span>{t.navAbout}</span>
                   <ArrowRight className="w-4 h-4 text-[#FFD52A]" />
                 </Link>
 
@@ -255,7 +264,7 @@ export default function HomePage() {
                   className="inline-flex items-center gap-2 text-sm font-bold text-[#102C5C] hover:text-[#1A3E7D] px-4 py-3"
                 >
                   <Phone className="w-4 h-4 text-[#FFD52A]" />
-                  <span>Call {company.phoneNumbers[0].display}</span>
+                  <span>{t.ctaCallText} {company.phoneNumbers[0].display}</span>
                 </a>
               </div>
             </AnimatedSection>
@@ -269,9 +278,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             centered
-            eyebrow="Our Core Capabilities"
-            title="Complete Construction Solutions"
-            description="We undertake all types of house and building construction work, executed by skilled tradesmen using quality construction materials."
+            eyebrow={t.servicesEyebrow}
+            title={t.servicesTitle}
+            description={t.servicesDescription}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -285,7 +294,7 @@ export default function HomePage() {
               href="/services"
               className="inline-flex items-center gap-2 bg-[#102C5C] hover:bg-[#0A1E40] text-white font-bold text-sm px-8 py-4 rounded-lg shadow-md transition-all hover:scale-105"
             >
-              <span>View All Detailed Services</span>
+              <span>{t.exploreServices}</span>
               <ArrowRight className="w-4 h-4 text-[#FFD52A]" />
             </Link>
           </AnimatedSection>
@@ -298,17 +307,17 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
               <span className="text-xs font-bold tracking-widest uppercase text-[#102C5C] bg-[#102C5C]/10 px-3 py-1 rounded-full mb-3 inline-block">
-                Portfolio Showcase
+                {t.projectsEyebrow}
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#102C5C] tracking-tight">
-                Spaces Built with Purpose
+                {t.projectsTitle}
               </h2>
             </div>
             <Link
               href="/projects"
               className="mt-4 md:mt-0 inline-flex items-center gap-2 text-sm font-bold text-[#102C5C] hover:text-[#1A3E7D]"
             >
-              <span>View All Projects</span>
+              <span>{t.viewAllProjects}</span>
               <ArrowRight className="w-4 h-4 text-[#FFD52A]" />
             </Link>
           </div>
@@ -329,13 +338,13 @@ export default function HomePage() {
           <SectionHeading
             centered
             light
-            eyebrow="Our Company Advantage"
-            title="Why Build with Manjula Constructions?"
-            description="We build our reputation on precision estimates, high grade materials, and personal dedication to every project in the Negombo region."
+            eyebrow={t.howWeMaintainQuality}
+            title={t.commitmentsTitle}
+            description={t.howWeMaintainQualityDesc}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {company.sellingPoints.map((point, index) => {
+            {currentValues.map((point, index) => {
               const Icon = valueIconMap[point.icon] || ShieldCheck;
               return (
                 <motion.div
@@ -368,13 +377,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             centered
-            eyebrow="Structured Execution"
-            title="From Planning to Completion"
-            description="Our proposed construction pathway provides complete clarity, keeping you informed at every milestone."
+            eyebrow={t.processEyebrow}
+            title={t.processTitle}
+            description={t.processDescription}
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {processSteps.slice(0, 5).map((step, idx) => (
+            {currentProcess.slice(0, 5).map((step, idx) => (
               <motion.div
                 key={step.step}
                 initial={{ opacity: 0, y: 20 }}
@@ -398,7 +407,7 @@ export default function HomePage() {
 
                 <div className="pt-4 mt-4 border-t border-gray-200">
                   <span className="text-[11px] font-semibold text-[#102C5C]">
-                    Milestone Verified ✓
+                    {t.milestoneVerified}
                   </span>
                 </div>
               </motion.div>
@@ -410,7 +419,7 @@ export default function HomePage() {
               href="/process"
               className="inline-flex items-center gap-2 text-sm font-bold text-[#102C5C] hover:underline"
             >
-              <span>Explore Our Full Detailed Process</span>
+              <span>{t.exploreFullProcess}</span>
               <ArrowRight className="w-4 h-4 text-[#FFD52A]" />
             </Link>
           </AnimatedSection>
@@ -422,13 +431,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             centered
-            eyebrow="Our Commitments"
-            title="Building with Integrity"
-            description="We adhere to strict standards of transparency and quality on every residential build."
+            eyebrow={t.commitmentsEyebrow}
+            title={t.commitmentsTitle}
+            description={t.commitmentsDescription}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {companyValues.map((val, idx) => {
+            {currentValues.map((val, idx) => {
               const Icon = valueIconMap[val.icon] || ShieldCheck;
               return (
                 <motion.div

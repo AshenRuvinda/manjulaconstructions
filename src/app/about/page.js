@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { company } from "@/data/company";
-import { companyValues } from "@/data/testimonials";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations, localizedCompanyValues } from "@/data/translations";
 import SectionHeading from "@/components/SectionHeading";
 import ContactCTA from "@/components/ContactCTA";
-import { constructMetadata } from "@/lib/seo";
 import {
   ShieldCheck,
   CheckCircle,
@@ -16,13 +18,6 @@ import {
   UserCheck,
 } from "lucide-react";
 
-export const metadata = constructMetadata({
-  title: "About Us | Manjula Constructions Negombo",
-  description:
-    "Learn about Manjula Constructions — a trusted home design & construction firm based in Daluwakotuwa, Kochchikade, Negombo, Sri Lanka.",
-  pathname: "/about",
-});
-
 const iconMap = {
   BadgeDollarSign,
   ShieldCheck,
@@ -31,6 +26,10 @@ const iconMap = {
 };
 
 export default function AboutPage() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+  const currentValues = localizedCompanyValues[language] || localizedCompanyValues.en;
+
   return (
     <>
       {/* Page Hero */}
@@ -39,14 +38,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#FFD52A] bg-[#FFD52A]/15 px-3 py-1 rounded-full mb-4">
-              Our Story & Standards
+              {t.aboutHeroBadge}
             </span>
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight mb-6">
-              Building with Purpose.{" "}
-              <span className="text-[#FFD52A]">Working with Trust.</span>
+              {t.aboutHeroTitle}
             </h1>
             <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Manjula Constructions is a dedicated home design and construction company based in Kochchikade, Negombo. We specialize in residential builds, precision masonry, and turnkey home finishing.
+              {t.aboutHeroDesc}
             </p>
           </div>
         </div>
@@ -80,43 +78,39 @@ export default function AboutPage() {
 
             <div className="lg:col-span-6">
               <SectionHeading
-                eyebrow="Who We Are"
-                title="Your Reliable Partner for Residential Construction"
-                description="Located conveniently in Kochchikade, Negombo, Manjula Constructions was founded on straightforward principles: build every house as if it were our own, provide clear cost estimates, and maintain uncompromising standards in every stage of masonry and finishing."
+                eyebrow={t.aboutWhoWeAreEyebrow}
+                title={t.aboutWhoWeAreTitle}
+                description={t.aboutWhoWeAreDesc}
               />
 
               <div className="space-y-4 text-sm text-gray-700 leading-relaxed mb-8">
-                <p>
-                  Building a home in Sri Lanka requires navigating changing material costs, tropical weather patterns, and coordination between masons, electricians, and tilers. We provide complete hands-on management so homeowners have peace of mind from ground-breaking to key handover.
-                </p>
-                <p>
-                  Whether starting a brand-new multi-story house, adding partition walls, fixing imported porcelain tiles, or creating modern gypsum false ceilings with ambient cove lighting, we ensure experienced workmanship and dependable results.
-                </p>
+                <p>{t.aboutStoryP1}</p>
+                <p>{t.aboutStoryP2}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-100">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#FFD52A] shrink-0" />
                   <span className="text-sm font-semibold text-[#102C5C]">
-                    Accurate Cost Estimation
+                    {t.introFeature1}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#FFD52A] shrink-0" />
                   <span className="text-sm font-semibold text-[#102C5C]">
-                    Quality Construction Materials
+                    {t.introFeature2}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#FFD52A] shrink-0" />
                   <span className="text-sm font-semibold text-[#102C5C]">
-                    Direct On-Site Supervision
+                    {t.introFeature4}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#FFD52A] shrink-0" />
                   <span className="text-sm font-semibold text-[#102C5C]">
-                    Experienced Tradesmen
+                    {t.introFeature3}
                   </span>
                 </div>
               </div>
@@ -125,27 +119,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission & Vision Section (Editable draft copy for owner) */}
+      {/* Mission & Vision Section */}
       <section className="py-20 bg-[#F4F3EF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             centered
-            eyebrow="Guiding Principles"
-            title="Our Mission & Vision"
-            description="Our organizational commitment to home builders and property owners across Negombo."
+            eyebrow={t.valuesGuidingPrinciples}
+            title={t.valuesMissionTitle}
+            description={t.valuesMissionSubtitle}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#102C5C] bg-[#102C5C]/10 px-3 py-1 rounded-full mb-4 inline-block">
-                  Our Mission
+                  {t.missionLabel}
                 </span>
                 <h3 className="text-2xl font-bold text-[#102C5C] mb-4">
-                  Quality Homes Built with Integrity
+                  {t.missionHeading}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  To deliver durable, beautiful residential construction through transparent pricing, vetted quality materials, and experienced tradesmen — turning each client&apos;s home vision into a lasting reality.
+                  {t.missionBody}
                 </p>
               </div>
             </div>
@@ -153,13 +147,13 @@ export default function AboutPage() {
             <div className="bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#FFD52A] bg-[#FFD52A]/20 px-3 py-1 rounded-full mb-4 inline-block">
-                  Our Vision
+                  {t.visionLabel}
                 </span>
                 <h3 className="text-2xl font-bold text-[#102C5C] mb-4">
-                  Negombo&apos;s Most Trusted Home Builder
+                  {t.visionHeading}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  To be the preferred residential construction and home finishing specialist in Kochchikade, Negombo, recognized for dependable commitments, fair dealing, and craftsmanship that stands the test of time.
+                  {t.visionBody}
                 </p>
               </div>
             </div>
@@ -172,13 +166,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             centered
-            eyebrow="Our Construction Approach"
-            title="How We Maintain Quality on Every Build"
-            description="We apply disciplined standards to material selection, structural integrity, and financial transparency."
+            eyebrow={t.valuesGuidingPrinciples}
+            title={t.howWeMaintainQuality}
+            description={t.howWeMaintainQualityDesc}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {companyValues.map((val) => {
+            {currentValues.map((val) => {
               const Icon = iconMap[val.icon] || ShieldCheck;
               return (
                 <div
@@ -209,13 +203,13 @@ export default function AboutPage() {
           <div className="bg-[#102C5C] border border-white/10 rounded-2xl p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="max-w-2xl">
               <span className="text-xs uppercase font-bold text-[#FFD52A] tracking-wider mb-2 block">
-                Official Company Flyer & Contact Details
+                {t.aboutFlyerBadge}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
-                Connect Directly with Our Leadership
+                {t.aboutFlyerTitle}
               </h2>
               <p className="text-sm text-gray-300">
-                You can reach us at any of our three active contact numbers:{" "}
+                {t.aboutFlyerDesc}{" "}
                 <span className="text-white font-bold">077 808 8058</span>,{" "}
                 <span className="text-white font-bold">076 323 1495</span>, or{" "}
                 <span className="text-white font-bold">076 889 8293</span>.
@@ -227,13 +221,13 @@ export default function AboutPage() {
                 href="/estimate"
                 className="bg-[#FFD52A] text-[#102C5C] font-extrabold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg hover:bg-[#F2C71B] transition-colors"
               >
-                Request an Estimate
+                {t.requestEstimate}
               </Link>
               <Link
                 href="/services"
                 className="bg-white/10 border border-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg hover:bg-white/20 transition-colors"
               >
-                Explore Services
+                {t.exploreServices}
               </Link>
             </div>
           </div>

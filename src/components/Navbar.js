@@ -62,14 +62,14 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo treatment */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 rounded-lg overflow-hidden border border-white/20 shadow-md group-hover:scale-105 transition-transform bg-black shrink-0">
+            <div className="relative w-11 h-11 group-hover:scale-105 transition-transform shrink-0">
               <Image
                 src="/logo.png"
                 alt="Manjula Constructions Logo"
                 fill
                 sizes="44px"
                 priority
-                className="object-contain p-1"
+                className="object-contain"
               />
             </div>
             <div>

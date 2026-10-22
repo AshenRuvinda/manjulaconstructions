@@ -15,13 +15,13 @@ export default function Footer() {
           {/* Column 1: Company Profile */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative w-11 h-11 rounded-lg overflow-hidden border border-white/20 shadow-md bg-black shrink-0">
+              <div className="relative w-11 h-11 shrink-0">
                 <Image
                   src="/logo.png"
                   alt="Manjula Constructions Logo"
                   fill
                   sizes="44px"
-                  className="object-contain p-1"
+                  className="object-contain"
                 />
               </div>
               <div>
